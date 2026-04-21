@@ -1,0 +1,16 @@
+{
+  "name": "toml-parser",
+  "version": "1.0.0",
+  "description": "Parse TOML config files to JSON with validation and error highlighting",
+  "main": "api/process.js",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "vercel-build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

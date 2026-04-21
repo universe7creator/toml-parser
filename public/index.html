@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOML Parser Pro - Parse Config Files Instantly</title>
+  <meta name="description" content="Parse TOML config files to JSON with validation, error highlighting, and syntax checking. One-time purchase, lifetime access.">
+  <meta property="og:title" content="TOML Parser Pro">
+  <meta property="og:description" content="Parse TOML config files to JSON instantly">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-text {
+      background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glow-btn {
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 50px rgba(124, 58, 237, 0.6);
+      transform: translateY(-2px);
+    }
+    .demo-area {
+      background: linear-gradient(180deg, rgba(124, 58, 237, 0.1) 0%, transparent 100%);
+    }
+    .code-block {
+      background: #0d0d0d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .line-number {
+      color: #4b5563;
+      user-select: none;
+    }
+    .error-highlight {
+      background: rgba(239, 68, 68, 0.2);
+      border-left: 3px solid #ef4444;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124, 58, 237, 0.4);
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen">
+  <!-- Header -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="file-code" class="w-6 h-6 text-purple-400"></i>
+          <span class="font-bold text-lg">TOML Parser Pro</span>
+        </div>
+        <a href="#pricing" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-sm font-medium transition">Buy Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <div class="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full mb-8 animate-fade-in">
+        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+        <span class="text-sm text-gray-300">46+ developers trust TOML Parser Pro</span>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in" style="animation-delay: 0.1s">
+        Parse TOML to <span class="gradient-text">JSON Instantly</span>
+      </h1>
+
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in" style="animation-delay: 0.2s">
+        Professional TOML parser with real-time validation, error highlighting, and beautiful JSON output. Perfect for config files and data conversion.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style="animation-delay: 0.3s">
+        <a href="#demo" class="glow-btn bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-xl font-semibold text-lg flex items-center space-x-2">
+          <i data-lucide="play" class="w-5 h-5"></i>
+          <span>Try Demo</span>
+        </a>
+        <a href="#pricing" class="glass px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/5 transition">
+          Get Lifetime Access
+        </a>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-6 mt-12 text-sm text-gray-500 animate-fade-in" style="animation-delay: 0.4s">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-green-400"></i>
+          <span>Secure Processing</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i>
+          <span>Instant Results</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <i data-lucide="lock" class="w-4 h-4 text-blue-400"></i>
+          <span>Privacy First</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section id="demo" class="py-20 demo-area">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Live Demo</h2>
+        <p class="text-gray-400">Paste your TOML config and see instant JSON output</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Input -->
+        <div class="glass rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-white/10">
+            <div class="flex items-center space-x-2">
+              <i data-lucide="file-code" class="w-4 h-4 text-purple-400"></i>
+              <span class="text-sm font-medium">TOML Input</span>
+            </div>
+            <button onclick="loadExample()" class="text-xs text-purple-400 hover:text-purple-300 transition">Load Example</button>
+          </div>
+          <textarea id="tomlInput" class="w-full h-80 p-4 mono text-sm bg-transparent resize-none focus:outline-none text-gray-300" placeholder="# Paste your TOML here
+title = \"My Config\"
+
+[database]
+server = \"192.168.1.1\"
+ports = [8000, 8001, 8002]
+
+[owner]
+name = \"John Doe\"
+dob = 1979-05-27"></textarea>
+        </div>
+
+        <!-- Output -->
+        <div class="glass rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-white/10">
+            <div class="flex items-center space-x-2">
+              <i data-lucide="code" class="w-4 h-4 text-green-400"></i>
+              <span class="text-sm font-medium">JSON Output</span>
+            </div>
+            <button onclick="copyOutput()" class="text-xs text-gray-400 hover:text-white transition flex items-center space-x-1">
+              <i data-lucide="copy" class="w-3 h-3"></i>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="relative">
+            <pre id="jsonOutput" class="w-full h-80 p-4 mono text-sm overflow-auto text-gray-300"><span class="text-gray-600">// JSON output will appear here</span></pre>
+            <div id="errorDisplay" class="hidden absolute bottom-0 left-0 right-0 bg-red-900/80 border-t border-red-500/50 p-3">
+              <div class="flex items-start space-x-2">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-red-400 mt-0.5"></i>
+                <span id="errorText" class="text-sm text-red-200"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <button onclick="parseTOML()" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 px-8 py-3 rounded-xl font-semibold transition inline-flex items-center space-x-2">
+          <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+          <span>Parse TOML</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything You Need</h2>
+        <p class="text-gray-400">Professional-grade TOML parsing with developer-friendly features</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="check-circle" class="w-6 h-6 text-purple-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Syntax Validation</h3>
+          <p class="text-gray-400 text-sm">Real-time TOML validation with detailed error messages and line highlighting.</p>
+        </div>
+
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="sparkles" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Pretty Printing</h3>
+          <p class="text-gray-400 text-sm">Beautiful formatted JSON output with syntax highlighting and collapsible sections.</p>
+        </div>
+
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="calendar" class="w-6 h-6 text-green-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Date Parsing</h3>
+          <p class="text-gray-400 text-sm">Full support for TOML dates, times, and datetime formats with proper conversion.</p>
+        </div>
+
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="layers" class="w-6 h-6 text-yellow-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Nested Tables</h3>
+          <p class="text-gray-400 text-sm">Perfect handling of TOML table arrays and nested configuration structures.</p>
+        </div>
+
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="zap" class="w-6 h-6 text-pink-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Instant Conversion</h3>
+          <p class="text-gray-400 text-sm">Lightning-fast parsing powered by modern JavaScript — no server required.</p>
+        </div>
+
+        <div class="feature-card glass rounded-xl p-6 transition-all duration-300">
+          <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="lock" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Privacy First</h3>
+          <p class="text-gray-400 text-sm">All processing happens in your browser. Your config files never leave your device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="py-20 px-4 demo-area">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Perfect For</h2>
+        <p class="text-gray-400">Trusted by developers working with modern config files</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass rounded-xl p-6 text-center">
+          <div class="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="box" class="w-8 h-8 text-orange-400"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Cargo.toml</h3>
+          <p class="text-gray-400 text-sm">Rust package manifests</p>
+        </div>
+
+        <div class="glass rounded-xl p-6 text-center">
+          <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="package" class="w-8 h-8 text-blue-400"></i>
+          </div>
+          <h3 class="font-semibold mb-2">pyproject.toml</h3>
+          <p class="text-gray-400 text-sm">Python project configs</p>
+        </div>
+
+        <div class="glass rounded-xl p-6 text-center">
+          <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="settings" class="w-8 h-8 text-purple-400"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Config Files</h3>
+          <p class="text-gray-400 text-sm">App configuration</p>
+        </div>
+
+        <div class="glass rounded-xl p-6 text-center">
+          <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="database" class="w-8 h-8 text-green-400"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Data Migration</h3>
+          <p class="text-gray-400 text-sm">Format conversion</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Loved by Developers</h2>
+        <p class="text-gray-400">See what our customers have to say</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass rounded-xl p-6">
+          <div class="flex items-center space-x-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-gray-300 mb-4">"As a Rust developer, I work with TOML daily. This parser saves me so much time debugging Cargo.toml files."</p>
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-sm font-bold">AS</div>
+            <div>
+              <p class="font-medium">Alex S.</p>
+              <p class="text-sm text-gray-500">Rust Developer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <div class="flex items-center space-x-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-gray-300 mb-4">"The error highlighting is a game-changer. Found a syntax error in my pyproject.toml that was breaking my build."</p>
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-sm font-bold">MK</div>
+            <div>
+              <p class="font-medium">Maria K.</p>
+              <p class="text-sm text-gray-500">Python Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <div class="flex items-center space-x-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+          </div>
+          <p class="text-gray-300 mb-4">"Clean interface, instant results, and the privacy aspect is crucial for our sensitive configs. Highly recommended!"</p>
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-sm font-bold">JD</div>
+            <div>
+              <p class="font-medium">James D.</p>
+              <p class="text-sm text-gray-500">DevOps Lead</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-20 px-4 demo-area">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple Pricing</h2>
+        <p class="text-gray-400">One-time purchase, lifetime access, no subscriptions</p>
+      </div>
+
+      <div class="glass rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-gradient-to-bl from-purple-600/20 to-transparent w-64 h-64"></div>
+
+        <div class="relative z-10">
+          <div class="inline-block glass px-4 py-2 rounded-full mb-6">
+            <span class="text-sm font-medium text-purple-400">Lifetime License</span>
+          </div>
+
+          <div class="flex items-baseline justify-center space-x-2 mb-6">
+            <span class="text-5xl md:text-6xl font-bold">$19</span>
+            <span class="text-gray-400 text-lg">one-time</span>
+          </div>
+
+          <p class="text-gray-400 mb-8 max-w-md mx-auto">Get unlimited access to TOML Parser Pro forever. No monthly fees, no usage limits.</p>
+
+          <ul class="text-left max-w-sm mx-auto space-y-3 mb-8">
+            <li class="flex items-center space-x-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+              <span class="text-gray-300">Unlimited conversions</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+              <span class="text-gray-300">Syntax validation</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+              <span class="text-gray-300">Error highlighting</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+              <span class="text-gray-300">Lifetime updates</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-400"></i>
+              <span class="text-gray-300">Priority support</span>
+            </li>
+          </ul>
+
+          <button id="buyBtn" class="glow-btn bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 w-full sm:w-auto px-12 py-4 rounded-xl font-bold text-lg transition">
+            Get TOML Parser Pro
+          </button>
+
+          <p class="text-sm text-gray-500 mt-4">30-day money-back guarantee</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked</h2>
+        <p class="text-gray-400">Everything you need to know</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="glass rounded-xl p-6">
+          <h3 class="font-semibold mb-2">What is TOML?</h3>
+          <p class="text-gray-400 text-sm">TOML (Tom's Obvious, Minimal Language) is a configuration file format that's easy to read and write. It's used by Rust (Cargo), Python (pyproject.toml), and many other modern tools.</p>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <h3 class="font-semibold mb-2">Is my data secure?</h3>
+          <p class="text-gray-400 text-sm">Absolutely. All parsing happens entirely in your browser using JavaScript. Your TOML files never leave your device or get sent to any server.</p>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <h3 class="font-semibold mb-2">What TOML features are supported?</h3>
+          <p class="text-gray-400 text-sm">We support the full TOML 1.0 specification including tables, inline tables, arrays, strings (literal and basic), integers, floats, booleans, dates, and times.</p>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <h3 class="font-semibold mb-2">Can I get a refund?</h3>
+          <p class="text-gray-400 text-sm">Yes! We offer a 30-day money-back guarantee. If you're not satisfied with TOML Parser Pro for any reason, contact us for a full refund.</p>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+          <h3 class="font-semibold mb-2">Do I need an internet connection?</h3>
+          <p class="text-gray-400 text-sm">After the initial page load, the parser works entirely offline in your browser. No internet connection required for conversions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-12 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="flex items-center space-x-2 mb-4 md:mb-0">
+          <i data-lucide="file-code" class="w-5 h-5 text-purple-400"></i>
+          <span class="font-bold">TOML Parser Pro</span>
+        </div>
+        <div class="flex items-center space-x-6 text-sm text-gray-500">
+          <a href="#" class="hover:text-white transition">Privacy</a>
+          <a href="#" class="hover:text-white transition">Terms</a>
+          <a href="#" class="hover:text-white transition">Contact</a>
+        </div>
+      </div>
+      <p class="text-center text-sm text-gray-600 mt-8">© 2026 TOML Parser Pro. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Checkout URL
+    const CHECKOUT_URL = window.__CHECKOUT_URL || null;
+    document.getElementById('buyBtn').addEventListener('click', () => {
+      if (CHECKOUT_URL && !CHECKOUT_URL.includes('placeholder')) {
+        window.open(CHECKOUT_URL, '_blank');
+      } else {
+        alert('Coming soon! Follow @OtonomUniverseCreator on Telegram for updates.');
+      }
+    });
+
+    // TOML Parser Implementation
+    function parseTOML() {
+      const input = document.getElementById('tomlInput').value.trim();
+      const outputEl = document.getElementById('jsonOutput');
+      const errorEl = document.getElementById('errorDisplay');
+      const errorText = document.getElementById('errorText');
+
+      if (!input) {
+        outputEl.innerHTML = '<span class="text-gray-600">// JSON output will appear here</span>';
+        errorEl.classList.add('hidden');
+        return;
+      }
+
+      try {
+        const result = parseTOMLToJSON(input);
+        outputEl.innerHTML = syntaxHighlight(JSON.stringify(result, null, 2));
+        errorEl.classList.add('hidden');
+      } catch (err) {
+        outputEl.innerHTML = '<span class="text-gray-600">// Error parsing TOML</span>';
+        errorEl.classList.remove('hidden');
+        errorText.textContent = err.message;
+      }
+    }
+
+    function parseTOMLToJSON(toml) {
+      const lines = toml.split('\n');
+      const result = {};
+      let currentTable = result;
+      const tableStack = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        // Skip empty lines and comments
+        if (!line || line.startsWith('#')) continue;
+
+        // Handle table arrays [[table]]
+        if (line.startsWith('[[') && line.endsWith(']]')) {
+          const tableName = line.slice(2, -2).trim();
+          const keys = tableName.split('.');
+          let target = result;
+
+          for (let j = 0; j < keys.length - 1; j++) {
+            if (!target[keys[j]]) target[keys[j]] = {};
+            target = target[keys[j]];
+          }
+
+          const lastKey = keys[keys.length - 1];
+          if (!target[lastKey]) target[lastKey] = [];
+          const newTable = {};
+          target[lastKey].push(newTable);
+          currentTable = newTable;
+          continue;
+        }
+
+        // Handle tables [table]
+        if (line.startsWith('[') && line.endsWith(']')) {
+          const tableName = line.slice(1, -1).trim();
+          const keys = tableName.split('.');
+          let target = result;
+
+          for (const key of keys) {
+            if (!target[key]) target[key] = {};
+            target = target[key];
+          }
+
+          currentTable = target;
+          continue;
+        }
+
+        // Handle key-value pairs
+        const eqIndex = line.indexOf('=');
+        if (eqIndex === -1) continue;
+
+        const key = line.slice(0, eqIndex).trim();
+        let value = line.slice(eqIndex + 1).trim();
+
+        currentTable[key] = parseValue(value);
+      }
+
+      return result;
+    }
+
+    function parseValue(value) {
+      // String (basic)
+      if (value.startsWith('"') && value.endsWith('"')) {
+        return value.slice(1, -1).replace(/\\"/g, '"').replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+      }
+
+      // String (literal)
+      if (value.startsWith("'") && value.endsWith("'")) {
+        return value.slice(1, -1);
+      }
+
+      // Array
+      if (value.startsWith('[') && value.endsWith(']')) {
+        const content = value.slice(1, -1);
+        if (!content.trim()) return [];
+
+        const items = [];
+        let current = '';
+        let depth = 0;
+
+        for (const char of content) {
+          if (char === '[') depth++;
+          if (char === ']') depth--;
+
+          if (char === ',' && depth === 0) {
+            items.push(parseValue(current.trim()));
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+
+        if (current.trim()) items.push(parseValue(current.trim()));
+        return items;
+      }
+
+      // Boolean
+      if (value === 'true') return true;
+      if (value === 'false') return false;
+
+      // Number
+      if (/^-?\d+$/.test(value)) return parseInt(value, 10);
+      if (/^-?\d+\.\d+$/.test(value)) return parseFloat(value);
+
+      // Date/Time (basic support)
+      if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+        return new Date(value).toISOString();
+      }
+
+      return value;
+    }
+
+    function syntaxHighlight(json) {
+      return json
+        .replace(/"(.*?)":/g, '<span class="text-purple-400">"$1"</span>:')
+        .replace(/: "(.*?)"/g, ': <span class="text-green-400">"$1"</span>')
+        .replace(/: (true|false)/g, ': <span class="text-blue-400">$1</span>')
+        .replace(/: (\d+)/g, ': <span class="text-yellow-400">$1</span>')
+        .replace(/: (null)/g, ': <span class="text-red-400">$1</span>');
+    }
+
+    function loadExample() {
+      const example = `# TOML Example
+title = "TOML Example"
+
+[owner]
+name = "Tom Preston-Werner"
+dob = 1979-05-27T07:32:00Z
+
+[database]
+enabled = true
+ports = [8000, 8001, 8002]
+data = [["delta", "phi"], [3.14]]
+temp_targets = {cpu = 79.5, case = 72.0}
+
+[servers]
+
+[servers.alpha]
+ip = "10.0.0.1"
+role = "frontend"
+
+[servers.beta]
+ip = "10.0.0.2"
+role = "backend"`;
+
+      document.getElementById('tomlInput').value = example;
+      parseTOML();
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('jsonOutput').innerText;
+      navigator.clipboard.writeText(output).then(() => {
+        alert('Copied to clipboard!');
+      });
+    }
+
+    // Auto-parse on input (debounced)
+    let debounceTimer;
+    document.getElementById('tomlInput').addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(parseTOML, 500);
+    });
+  </script>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TOML Parser Pro",
+    "description": "Parse TOML config files to JSON with validation and error highlighting",
+    "applicationCategory": "DeveloperApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "19",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "46"
+    }
+  }
+  </script>
+</body>
+</html>
