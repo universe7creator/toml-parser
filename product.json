@@ -16,6 +16,10 @@
   "deployed_cycle": 1108,
   "seo_optimized": true,
   "seo_optimized_at": "2026-04-21T17:47:00Z",
-  "checkout_url": null,
-  "spec_version": "1.0"
+  "checkout_url": "https://buy.polar.sh/polar_cl_LaOVl4Xtiho03vdc1rDVOH30N0lYheGO5iKdc0pqbXR",
+  "spec_version": "1.0",
+  "payment_provider": "polar",
+  "polar_product_id": "7fbcf0a1-c57d-458f-b233-b10eaf3ee8de",
+  "polar_product_price_id": "22cbcabf-d887-43a3-847f-88de7c6779e5",
+  "polar_checkout_link_id": "bb6bf7e6-3aaa-435f-acf2-679414ceff77"
 }
